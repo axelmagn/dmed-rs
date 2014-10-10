@@ -1,14 +1,14 @@
-DatMat
-======
+Delimited Matrix Editor
+=======================
 
-DatMat is a tool for manipulating data matrices such as csv files.  At present,
+`dmed` is a tool for manipulating data matrices such as csv files.  At present,
 no features are implemented.
 
 
 Usage
 -----
 
-    datmat [options] <selector> [<cmd>] [<input_file>...]
+    dmed [options] <selector> [<cmd>] [<input_file>...]
 
     OPTIONS:
         -d --delim=<delim>      Specify axis delimiters.  This does not include
@@ -19,6 +19,8 @@ Usage
         -l --odelim=<odelim>    Specify output delimiters.
         -e --empty=<empty>      Specify the string that should be used to
                                 represent empty cells.
+        --nprocs=<n>            Maximum number of subprocesses or threads that
+                                can be spawned. [Default: 24]
 
     CMD:
         shape                   Get the shape of this matrix
@@ -35,15 +37,24 @@ For decades there have existed a plethora of command line tools used to process
 streams of text.  The majority of these tools have operated either line by line,
 or in some cases on space-separated pieces of text within the line.  I have
 recently found it difficult to use command line tools on data files that have
-higher degrees of granularity in the data. `datmat` is my attempt to create a
-bridge between multidimensional data files and command line text processing
-tools such as `sort`, `unique`, and `comm`.
+higher degrees of granularity in the data.
+
+`dmed` is my attempt to create a bridge between multidimensional data files and
+command line text processing tools such as `sort`, `unique`, and `comm`.
+
+Many scripting and programming languages satisfy this function, and many are
+still the best fit for specialized operations.  However, this can often be at
+the expense of speed or memory constraints. Many matrix processing libraries
+attempt to load entire files into memory before operating on them. Others offer
+little to no concurrency. `dmed` attempts to provide optimized solutions to
+general problems while remaining focused on streamed data that does not
+necessarily fit into memory.
 
 
-Data Matrix
------------
+Delimited Matrix
+----------------
 
-A Data Matrix is any text file that contains data meant to represent an
+A Delimited Matrix is any text file that contains data meant to represent an
 N-dimensional matrix.  Individual cells in the matrix are separated by
 delimiter characters, which more broadly separate indices along axes.
 
@@ -81,7 +92,7 @@ from most significant (primary).
 When it comes time to output a result, these delimiters must be recreated. To
 specify output delimiters, use the `--odelim` option. They can be explicitly set
 in a similar syntax to the `--delim` option (e.g. \s/,/;)`. Alternatively, the
-user can use `--odelim=first` to tell datmat to use the first axis delimiter it
+user can use `--odelim=first` to tell dmed to use the first axis delimiter it
 encounters as the delimiter for all fields, or `--odelim=recent` to use the most
 recent delimiter it encounters. 'first' and 'recent' are keywords that cannot be
 used as output delimiters. If there is an incredible surge in demand for using
