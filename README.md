@@ -26,7 +26,7 @@ Usage
         shape                   Get the shape of this matrix
         reshape <new_shape>     Reshape this matrix into a new one
         map <cmd>               Map a command on each selected cell
-        agg <axes> <cmd>        Aggregate a matrix along the specified matrix
+        agg <axes> <cmd>        Aggregate a matrix along the specified axes
                                 using a command.
 
 
@@ -111,4 +111,19 @@ modified with the `--empty` option.
 Selection
 ---------
 
-Often only a part of the data matrix should be operated on.
+Often only a part of the data matrix should be operated on.  This is done with
+a selector, which follows a simple grammar.  A selector is a list consisting of
+axis restrictors, separated by forward slashes.
+
+### Grammar
+
+    <restr-list>    ::= <restr> ['/' <restr-list>]
+    <restr>         ::= <r-union> ['|' <restr>]
+    <restr-term>    ::= <spec> ['&' <restr-term>]
+    <spec>          ::= <index>
+                      | <range>
+                      | <ilist>
+    <range>         ::= [<index>] ':' [<index>]
+    <ilist>         ::= '[' <indeces> ']'
+    <indeces>       ::= <index> [',' <indeces>]
+    <index>         ::= NUM
