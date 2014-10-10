@@ -1,16 +1,14 @@
-Shape
-=====
+DatMat
+======
 
-Shape is a tool for manipulating data matrices such as csv files.  At present,
+DatMat is a tool for manipulating data matrices such as csv files.  At present,
 no features are implemented.
 
 
 Usage
 -----
 
-    shape [options] [<input_file>...]
-    shape [options] <selector> [<input_file>...]
-    shape [options] <selector> map <cmd> [<input_file>...]
+    datmat [options] <selector> [<cmd>] [<input_file>...]
 
     OPTIONS:
         -d --delim=<delim>      Specify axis delimiters.  This does not include
@@ -22,6 +20,13 @@ Usage
         -e --empty=<empty>      Specify the string that should be used to
                                 represent empty cells.
 
+    CMD:
+        shape                   Get the shape of this matrix
+        reshape <new_shape>     Reshape this matrix into a new one
+        map <cmd>               Map a command on each selected cell
+        reduce <axes> <cmd>     Reduce a matrix along the specified matrix using
+                                a command.
+
 
 Motivation
 ----------
@@ -30,7 +35,7 @@ For decades there have existed a plethora of command line tools used to process
 streams of text.  The majority of these tools have operated either line by line,
 or in some cases on space-separated pieces of text within the line.  I have
 recently found it difficult to use command line tools on data files that have
-higher degrees of granularity in the data. `shape` is my attempt to create a
+higher degrees of granularity in the data. `datmat` is my attempt to create a
 bridge between multidimensional data files and command line text processing
 tools such as `sort`, `unique`, and `comm`.
 
@@ -76,7 +81,7 @@ from most significant (primary).
 When it comes time to output a result, these delimiters must be recreated. To
 specify output delimiters, use the `--odelim` option. They can be explicitly set
 in a similar syntax to the `--delim` option (e.g. \s/,/;)`. Alternatively, the
-user can use `--odelim=first` to tell shape to use the first axis delimiter it
+user can use `--odelim=first` to tell datmat to use the first axis delimiter it
 encounters as the delimiter for all fields, or `--odelim=recent` to use the most
 recent delimiter it encounters. 'first' and 'recent' are keywords that cannot be
 used as output delimiters. If there is an incredible surge in demand for using
@@ -90,3 +95,9 @@ assumed to be the maximum number of cells found under a row of that axis.  If a
 row of that axis has fewer cells than one of its counterparts, the remaining
 cells are assumed to be an empty string.  This default empty cell can be
 modified with the `--empty` option.
+
+
+Selection
+---------
+
+Often only a part of the data matrix should be operated on.
