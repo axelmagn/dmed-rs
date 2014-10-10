@@ -26,8 +26,8 @@ Usage
         shape                   Get the shape of this matrix
         reshape <new_shape>     Reshape this matrix into a new one
         map <cmd>               Map a command on each selected cell
-        reduce <axes> <cmd>     Reduce a matrix along the specified matrix using
-                                a command.
+        agg <axes> <cmd>        Aggregate a matrix along the specified matrix
+                                using a command.
 
 
 Motivation
@@ -91,7 +91,7 @@ from most significant (primary).
 
 When it comes time to output a result, these delimiters must be recreated. To
 specify output delimiters, use the `--odelim` option. They can be explicitly set
-in a similar syntax to the `--delim` option (e.g. \s/,/;)`. Alternatively, the
+in a similar syntax to the `--delim` option (e.g. `\s/,/;`). Alternatively, the
 user can use `--odelim=first` to tell dmed to use the first axis delimiter it
 encounters as the delimiter for all fields, or `--odelim=recent` to use the most
 recent delimiter it encounters. 'first' and 'recent' are keywords that cannot be
