@@ -126,4 +126,4 @@ axis restrictors, separated by forward slashes.
     <range>         ::= [<index>] ':' [<index>]
     <ilist>         ::= '[' <indeces> ']'
     <indeces>       ::= <index> [',' <indeces>]
-    <index>         ::= NUM
+    <index>         ::= /[+-]?[0-9]+/
