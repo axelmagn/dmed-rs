@@ -1,13 +1,8 @@
-use std::util::Void;
-
 /// A  matrix or submatrix that can be explicitly accessed or manipulated.  
 /// 
 /// This is good for matrices that have been loaded into memory for
 /// manipulation.  It is bad for matrices that are being streamed.  
 pub trait Matrix {
-    /// Construct a new Matrix from a flat vector and a shape
-    fn from_vec(dat: &Vec<&str>, shape: &Vec<uint>) 
-        -> Result<Self, &'static str>;
     
     /// Constrain the matrix to a range of indeces at the specified depth.
     /// 
@@ -22,7 +17,7 @@ pub trait Matrix {
     /// entries in a given dimension of the matrix
     fn shape(&self) -> Vec<uint>;
 
-    fn reshape(&mut self, shape: Vec<uint>) -> Result<Void, &'static str>;
+    fn reshape(&mut self, shape: Vec<uint>) -> Result<(), &'static str>;
 }
 
 // TODO: implement a DeepVecMatrix for cases where we want to trade time for
@@ -38,6 +33,28 @@ struct FlatVecMatrix {
     dat_shape: Vec<uint>,
 }
 
+impl FlatVecMatrix {
+    /// Construct a new Matrix from a flat vector and a shape
+    fn from_vec(dat: &Vec<&str>, shape: &Vec<uint>) -> Result<FlatVecMatrix, 
+            &'static str> {
+        let out = FlatVecMatrix { dat: dat.clone(), shape: shape.clone() };
+        let valid = out.valid_shape();
+        match valid {
+            Err =>  valid,
+            Ok  =>  Ok(out)
+        }
+    }
+
+    fn valid_shape(&self) -> Result<(), &'static str> {
+        let count = shape.iter().fold(1, |a, &b| a * b);
+        if count != dat.len() {
+            Err("Shape does not match input length")
+        }
+        Ok()
+    }
+}
+
 
 impl Matrix for FlatVecMatrix {
+
 }
