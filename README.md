@@ -11,9 +11,7 @@ Usage
     dmed [options] <selector> [<cmd>] [<input_file>...]
 
     OPTIONS:
-        -d --delim=<delim>      Specify axis delimiters.  This does not include
-                                the primary axis, which is specified separately.
-                                [Default: '\s']
+        -d --delim=<delim>      Specify axis delimiters. [Default: '\s']
         -p --pdelim=<pdelim>    Specify primary axis delimiters.  
                                 [Default: '\n']
         -l --odelim=<odelim>    Specify output delimiters.
