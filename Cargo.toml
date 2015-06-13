@@ -1,11 +1,12 @@
 [package]
-
 name = "dmed"
 version = "0.0.1"
 authors = ["Axel Magnuson <axelmagn@gmail.com>"]
 
-[dependencies.getopts]
-version = "0.1.4"
+[dependencies]
+getopts = "0.2"
+regex = "0.1.8"
+
 
 [[bin]]
 name = "dmed"
